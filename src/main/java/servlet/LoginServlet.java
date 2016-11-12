@@ -11,19 +11,22 @@ import java.io.IOException;
 import java.sql.*;
 
 /**
- * Created by Administrator on 2016/11/13.
+ * Created by Administrator on 2016/11/12.
  */
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email").trim().toLowerCase();
-        String password = request.getParameter("password");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doPost(req, resp);
+
+        String email = req.getParameter("email").trim().toLowerCase();
+        String password = req.getParameter("password");
 
         try {
             new Driver();
-            Connection connection = DriverManager.getConnection("jdbc:mysql://166.111.201.133:3306/db_javaee?user=root&password=system");
-            String sql = "SELECT * FROM db_javaee.user WHERE email=? AND password=?";
+            Connection connection = DriverManager.getConnection("jdbc:mysql:///db_javaee", "root", "system");
+            String sql = "SELECT * FROM db_javaee.user WHERE email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -31,11 +34,11 @@ public class LoginServlet extends HttpServlet {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                request.getSession().setAttribute("email", email);
-                response.sendRedirect("home.jsp");
+                req.getSession().setAttribute("email", email);
+                resp.sendRedirect("home.jsp");
             } else {
-                request.setAttribute("message", "invalid email or password!");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                req.setAttribute("message", "invalid email or password.");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
 
             resultSet.close();

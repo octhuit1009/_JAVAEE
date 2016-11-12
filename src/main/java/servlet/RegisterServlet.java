@@ -3,6 +3,7 @@ package servlet;
 import com.mysql.jdbc.Driver;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 /**
  * Created by Administrator on 2016/11/13.
  */
+@WebServlet(urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
 
     @Override
