@@ -12,6 +12,8 @@ CREATE TABLE db_javaee.user (
   hobbies  VARCHAR(255) COMMENT ''
 );
 
+-- table book: title, author, publish, date, price, amount
+
 -- select
 SELECT *
 FROM db_javaee.user;

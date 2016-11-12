@@ -12,7 +12,8 @@
 </head>
 <body>
 <h1>sign up</h1>
-<form action="register.jsp" method="post">
+<form action="/user" method="post">
+    <input type="hidden" name="action" value="register">
     <input type="text" name="email" placeholder="EMAIL" value="tester@test.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
     <select name="cities" multiple="multiple">
