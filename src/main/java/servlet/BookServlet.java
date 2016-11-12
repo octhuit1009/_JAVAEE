@@ -55,7 +55,7 @@ public class BookServlet extends HttpServlet {
 
             preparedStatement.executeUpdate();
 
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("/book?action=query");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

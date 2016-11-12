@@ -34,6 +34,7 @@ FROM db_javaee.book;
 DELETE FROM db_javaee.book WHERE id = 3;
 
 TRUNCATE TABLE db_javaee.user;
+TRUNCATE TABLE db_javaee.book;
 
 SELECT *
 FROM mysql.user;

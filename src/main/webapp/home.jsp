@@ -33,16 +33,23 @@ ${sessionScope.email}
 <hr>
 <h2>book list</h2>
 <table border="1">
-    <tr>
-        <th>ID</th>
-        <th>TITLE</th>
-        <th>AUTHOR</th>
-        <th>PUBLISH</th>
-        <th>DATE</th>
-        <th>PRICE</th>
-        <th>AMOUNT</th>
-        <th colspan="2">OPERATION</th>
-    </tr>
+    <c:choose>
+        <c:when test="${sessionScope.books[0] eq null}">
+            NO RECORD.
+        </c:when>
+        <c:otherwise>
+            <tr>
+                <th>ID</th>
+                <th>TITLE</th>
+                <th>AUTHOR</th>
+                <th>PUBLISH</th>
+                <th>DATE</th>
+                <th>PRICE</th>
+                <th>AMOUNT</th>
+                <th colspan="2">OPERATION</th>
+            </tr>
+        </c:otherwise>
+    </c:choose>
     <c:forEach var="book" items="${sessionScope.books}" varStatus="vs">
         <tr>
             <td>${vs.count}</td>
