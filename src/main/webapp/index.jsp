@@ -12,7 +12,6 @@
 </head>
 <body>
 <h1>index page</h1>
-<%=session.getId()%>
 <form action="/user" method="post">
     <input type="hidden" name="action" value="login">
     <input type="text" name="email" placeholder="EMAIL" value="tester@test.com"><br>
@@ -22,6 +21,6 @@
 <hr>
 <a href="signup.jsp">SIGN UP</a>
 <br>
-<%=(request.getAttribute("message") != null) ? request.getAttribute("message") : ""%>
+${requestScope.message}
 </body>
 </html>

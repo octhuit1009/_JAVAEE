@@ -12,11 +12,26 @@ CREATE TABLE db_javaee.user (
   hobbies  VARCHAR(255) COMMENT ''
 );
 
--- table book: title, author, publish, date, price, amount
+-- table book
+DROP TABLE IF EXISTS db_javaee.book;
+CREATE TABLE db_javaee.book (
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  title   VARCHAR(255) COMMENT '',
+  author  VARCHAR(255) COMMENT '',
+  publish VARCHAR(255) COMMENT '',
+  date    DATE COMMENT '',
+  price   DECIMAL(6,2) COMMENT '',
+  amount  INT COMMENT ''
+) COMMENT '';
 
 -- select
 SELECT *
 FROM db_javaee.user;
+
+SELECT *
+FROM db_javaee.book;
+
+DELETE FROM db_javaee.book WHERE id = 3;
 
 TRUNCATE TABLE db_javaee.user;
 

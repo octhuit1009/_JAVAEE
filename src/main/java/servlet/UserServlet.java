@@ -74,7 +74,7 @@ public class UserServlet extends HttpServlet {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 req.getSession().setAttribute("email", email);
-                resp.sendRedirect("home.jsp");
+                resp.sendRedirect("/book?action=query");
             } else {
                 req.setAttribute("message", "invalid email or password.");
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
