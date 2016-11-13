@@ -20,6 +20,6 @@
 <%=session.getId()%>
 <%=(session.getAttribute("email") != null) ? session.getAttribute("email") : ""%>
 <br>
-<a href="logout.jsp">LOG OUT</a>
+<a href="/logout">LOG OUT</a>
 </body>
 </html>

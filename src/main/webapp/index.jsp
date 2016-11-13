@@ -13,7 +13,7 @@
 <body>
 <h1>index page</h1>
 <%=session.getId()%>
-<form action="login.jsp" method="post">
+<form action="/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="tester@test.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
     <input type="submit" value="LOG IN">
