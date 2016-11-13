@@ -8,15 +8,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>index page</title>
 </head>
 <body>
-<form action="login.jsp">
-    <input type="text" name="email" placeholder="EMAIL"><br>
-    <input type="password" name="password" placeholder="PASSWORD"><br>
+<h1>index page</h1>
+<%=session.getId()%>
+<form action="login.jsp" method="post">
+    <input type="text" name="email" placeholder="EMAIL" value="tester@test.com"><br>
+    <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
     <input type="submit" value="LOG IN">
 </form>
 <hr>
 <a href="signup.jsp">SIGN UP</a>
+<br>
+<%=(request.getAttribute("message") != null) ? request.getAttribute("message") : ""%>
 </body>
 </html>

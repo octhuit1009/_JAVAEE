@@ -16,7 +16,7 @@
 </head>
 <body>
 <%
-    String email = request.getParameter("email");
+    String email = request.getParameter("email").trim().toLowerCase();
     String password = request.getParameter("password");
     String[] cities = request.getParameterValues("cities");
     String[] hobbies = request.getParameterValues("hobbies");
@@ -35,8 +35,10 @@
     preparedStatement.close();
     connection.close();
 
-    request.getRequestDispatcher("index.jsp").forward(request, response);
+//    request.setAttribute("message", "注册成功！");
 
+//    request.getRequestDispatcher("index.jsp").forward(request, response); // 转发 forward
+    response.sendRedirect("index.jsp"); // 重定向 redirect
 %>
 </body>
 </html>
