@@ -15,6 +15,16 @@
 <form action="register.jsp">
     <input type="text" name="email" placeholder="EMAIL"><br>
     <input type="password" name="password" placeholder="PASSWORD"><br>
+    <select name="cities" multiple="multiple">
+        <option value="Beijing">Beijing</option>
+        <option value="Shanghai">Shanghai</option>
+        <option value="Guangzhou">Guangzhou</option>
+    </select><br>
+    <input type="checkbox" name="hobbies" value="TV">TV
+    <input type="checkbox" name="hobbies" value="Game">Game
+    <input type="checkbox" name="hobbies" value="Play">Play
+    <input type="checkbox" name="hobbies" value="Studey">Study
+    <br>
     <input type="submit" value="SIGN UP">
 </form>
 </body>

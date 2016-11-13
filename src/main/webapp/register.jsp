@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Arrays" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2016/11/13
@@ -14,7 +14,11 @@
 <%
     String email = request.getParameter("email");
     String password = request.getParameter("password");
-    out.print(email + ", " + password);
+    String[] cities = request.getParameterValues("cities");
+    String[] hobbies = request.getParameterValues("hobbies");
+    out.print(email + ", " + password + "<br>");
+    out.print(Arrays.asList(cities) + "<br>");
+    out.print(Arrays.asList(hobbies) + "<br>");
 %>
 </body>
 </html>
