@@ -11,6 +11,11 @@
 <html>
 <head>
     <title>home page</title>
+    <script>
+        function del() {
+            return confirm("DELETE?")
+        }
+    </script>
 </head>
 <body>
 <c:if test="${sessionScope.email eq null}">
@@ -39,7 +44,7 @@ ${sessionScope.email}
         </c:when>
         <c:otherwise>
             <tr>
-                <th>ID</th>
+                <th>编号</th>
                 <th>TITLE</th>
                 <th>AUTHOR</th>
                 <th>PUBLISH</th>
@@ -59,8 +64,8 @@ ${sessionScope.email}
             <td>${book.date}</td>
             <td>${book.price}</td>
             <td>${book.amount}</td>
-            <td><a href="">MODIFY</a></td>
-            <td><a href="">REMOVE</a></td>
+            <td><a href="/book?action=search&id=${book.id}">MODIFY</a></td>
+            <td><a href="/book?action=remove&id=${book.id}" onclick="return del()">REMOVE</a></td>
         </tr>
     </c:forEach>
 </table>

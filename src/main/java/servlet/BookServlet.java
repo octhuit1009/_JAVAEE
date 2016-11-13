@@ -29,6 +29,15 @@ public class BookServlet extends HttpServlet {
         if (action.equals("query")) {
             query(request, response);
         }
+        if (action.equals("search")) {
+            search(request, response);
+        }
+        if (action.equals("update")) {
+            update(request, response);
+        }
+        if (action.equals("remove")) {
+            remove(request, response);
+        }
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,7 +84,7 @@ public class BookServlet extends HttpServlet {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
 
-            List<Book> books = new ArrayList();
+            List<Book> books = new ArrayList<>();
             while (resultSet.next()) {
                 Book book = new Book(
                         resultSet.getInt("id"),
@@ -94,6 +103,89 @@ public class BookServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             DB.close(resultSet, preparedStatement, connection);
+        }
+    }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.valueOf(request.getParameter("id"));
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DB.getConnection();
+            String sql = "SELECT * FROM db_javaee.book WHERE id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next(); // *****
+            Book book = new Book(
+                    resultSet.getInt("id"),
+                    resultSet.getString("title"),
+                    resultSet.getString("author"),
+                    resultSet.getString("publish"),
+                    resultSet.getString("date"),
+                    resultSet.getDouble("price"),
+                    resultSet.getInt("amount")
+            );
+            request.getSession().setAttribute("book", book);
+            response.sendRedirect("edit.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.close(resultSet, preparedStatement, connection);
+        }
+    }
+
+    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int id = Integer.valueOf(request.getParameter("id"));
+        String title = request.getParameter("title").trim();
+        String author = request.getParameter("author").trim();
+        String publish = request.getParameter("publish").trim();
+        String date = request.getParameter("date").trim();
+        double price = Double.valueOf(request.getParameter("price").trim());
+        int amount = Integer.valueOf(request.getParameter("amount").trim());
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DB.getConnection();
+            String sql = "UPDATE db_javaee.book SET title = ?, author = ?, publish = ?, date=?, price = ?, amount = ? WHERE id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, author);
+            preparedStatement.setString(3, publish);
+            preparedStatement.setString(4, date);
+            preparedStatement.setDouble(5, price);
+            preparedStatement.setInt(6, amount);
+            preparedStatement.setInt(7, id);
+            preparedStatement.executeUpdate();
+            response.sendRedirect("/book?action=query");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.close(null, preparedStatement, connection);
+        }
+    }
+
+    private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.valueOf(request.getParameter("id"));
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DB.getConnection();
+            String sql = "DELETE FROM db_javaee.book WHERE id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            response.sendRedirect("/book?action=query");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.close(null, preparedStatement, connection);
         }
     }
 
