@@ -1,4 +1,8 @@
-<%@ page import="java.util.Arrays" %><%--
+<%@ page import="java.util.Arrays" %>
+<%@ page import="com.mysql.jdbc.Driver" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.PreparedStatement" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2016/11/13
@@ -16,9 +20,23 @@
     String password = request.getParameter("password");
     String[] cities = request.getParameterValues("cities");
     String[] hobbies = request.getParameterValues("hobbies");
-    out.print(email + ", " + password + "<br>");
-    out.print(Arrays.asList(cities) + "<br>");
-    out.print(Arrays.asList(hobbies) + "<br>");
+
+    new Driver();
+    Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/db_javaee", "root", "system");
+    String sql = "INSERT INTO db_javaee.user VALUE (NULL ,?,?,?,?)";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setString(1, email);
+    preparedStatement.setString(2, password);
+    preparedStatement.setString(3, Arrays.asList(cities).toString());
+    preparedStatement.setString(4, Arrays.asList(hobbies).toString());
+
+    preparedStatement.executeUpdate(); // DML insert update delete
+
+    preparedStatement.close();
+    connection.close();
+
+    request.getRequestDispatcher("index.jsp").forward(request, response);
+
 %>
 </body>
 </html>
